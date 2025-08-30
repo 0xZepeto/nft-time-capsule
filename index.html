@@ -1,39 +1,75 @@
-import { useState, useEffect } from "react";
-
-export default function App() {
-  const [minted, setMinted] = useState(false);
-  const [unlockTime, setUnlockTime] = useState(null);
-  const [now, setNow] = useState(Date.now());
-  const [revealed, setRevealed] = useState(false);
-
-  useEffect(() => {
-    const interval = setInterval(() => setNow(Date.now()), 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const mintNFT = () => {
-    const time = Date.now() + 10000; // unlock setelah 10 detik
-    setUnlockTime(time);
-    setMinted(true);
-  };
-
-  const checkUnlock = () => {
-    if (Date.now() >= unlockTime) {
-      setRevealed(true);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NFT Time Capsule (PoC)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-  };
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 300px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      background: #4a90e2;
+      color: white;
+      cursor: pointer;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>NFT Time Capsule</h2>
+    <p id="status">No NFT minted yet.</p>
+    <button onclick="mintNFT()">Mint NFT</button>
+    <button onclick="checkUnlock()" class="hidden" id="checkBtn">Check Unlock</button>
+    <div id="content" class="hidden">
+      <h3>🎉 Revealed Content</h3>
+      <p>This is the secret message inside your NFT Time Capsule!</p>
+    </div>
+  </div>
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 to-blue-200">
-      <div className="bg-white shadow-lg rounded-2xl p-8 w-[380px] text-center">
-        <h1 className="text-2xl font-bold text-indigo-600 mb-4">
-          NFT Time Capsule
-        </h1>
+  <script>
+    let unlockTime = null;
 
-        {!minted && (
-          <>
-            <p className="mb-4 text-gray-600">No NFT minted yet.</p>
-            <button
+    function mintNFT() {
+      // Simulasi unlock time 10 detik dari sekarang
+      unlockTime = Date.now() + 10000;
+      document.getElementById("status").innerText = 
+        "NFT Minted! Unlocks in 10 seconds...";
+      document.getElementById("checkBtn").classList.remove("hidden");
+    }
+
+    function checkUnlock() {
+      if (Date.now() >= unlockTime) {
+        document.getElementById("status").innerText = "NFT Unlocked!";
+        document.getElementById("content").classList.remove("hidden");
+      } else {
+        const remaining = Math.ceil((unlockTime - Date.now())/1000);
+        document.getElementById("status").innerText = 
+          `Still locked... wait ${remaining} seconds.`;
+      }
+    }
+  </script>
+</body>
+</html>
               onClick={mintNFT}
               className="px-6 py-2 rounded-xl bg-indigo-500 text-white hover:bg-indigo-600 transition"
             >
