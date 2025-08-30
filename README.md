@@ -28,9 +28,8 @@ Users can "mint" an NFT, wait for a countdown, and then unlock hidden content.
 3. Click **Check Unlock** → content is revealed.
 
 ## Demo
-Open `index.html` directly in your browser.
+Download File https://github.com/0xZepeto/nft-time-capsule/edit/main/README.md & Open `index.html` directly in your browser.
 
 ---
 ⚠️ This is only a **frontend simulation**.  
 No blockchain interactions are included yet.
-https://github.com/0xZepeto/nft-time-capsule/index.html
