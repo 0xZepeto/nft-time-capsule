@@ -15,4 +15,3 @@ This Proof of Concept (PoC) demonstrates the basic flow of the **NFT Time Capsul
 - Implement minimal smart contract on testnet.
 - Connect simple frontend for minting and revealing.
 - Explore integration with Soundness proof layer for secure reveal.
-- 
