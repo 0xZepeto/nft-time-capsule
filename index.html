@@ -5,35 +5,118 @@
   <title>NFT Time Capsule (PoC)</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f9f9f9;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      margin: 0;
+      color: #333;
     }
     .card {
       background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
       text-align: center;
-      width: 300px;
+      width: 360px;
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    h2 {
+      margin-bottom: 15px;
+      color: #4a4a4a;
     }
     button {
-      margin-top: 10px;
-      padding: 10px;
+      margin-top: 12px;
+      padding: 12px 20px;
       border: none;
-      border-radius: 6px;
-      background: #4a90e2;
+      border-radius: 8px;
+      background: #667eea;
       color: white;
+      font-weight: bold;
       cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #5563c1;
     }
     .hidden {
       display: none;
     }
+    #content {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      background: #e6ffed;
+      color: #2f855a;
+      font-weight: 500;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: all 0.5s ease;
+    }
+    #content.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    #status {
+      font-size: 14px;
+      color: #555;
+    }
   </style>
 </head>
+<body>
+  <div class="card">
+    <h2>⏳ NFT Time Capsule</h2>
+    <p id="status">No NFT minted yet.</p>
+    <button onclick="mintNFT()" id="mintBtn">Mint NFT</button>
+    <button onclick="checkUnlock()" class="hidden" id="checkBtn">Check Unlock</button>
+    <div id="content" class="hidden">
+      <h3>🎉 Revealed Content</h3>
+      <p>This is the secret message inside your NFT Time Capsule!</p>
+    </div>
+  </div>
+
+  <script>
+    let unlockTime = null;
+    let countdownInterval = null;
+
+    function mintNFT() {
+      unlockTime = Date.now() + 10000; // 10 detik
+      document.getElementById("status").innerText = "NFT Minted! Unlocks in 10 seconds...";
+      document.getElementById("mintBtn").classList.add("hidden");
+      document.getElementById("checkBtn").classList.remove("hidden");
+
+      // Mulai live countdown
+      countdownInterval = setInterval(updateCountdown, 1000);
+    }
+
+    function updateCountdown() {
+      const remaining = Math.max(0, Math.ceil((unlockTime - Date.now()) / 1000));
+      if (remaining > 0) {
+        document.getElementById("status").innerText = `Still locked... wait ${remaining} seconds.`;
+      } else {
+        clearInterval(countdownInterval);
+        document.getElementById("status").innerText = "Unlock available! Click to reveal 🎁";
+      }
+    }
+
+    function checkUnlock() {
+      if (Date.now() >= unlockTime) {
+        document.getElementById("status").innerText = "NFT Unlocked!";
+        const content = document.getElementById("content");
+        content.classList.remove("hidden");
+        setTimeout(() => content.classList.add("show"), 50);
+      } else {
+        updateCountdown();
+      }
+    }
+  </script>
+</body>
+</html>
 <body>
   <div class="card">
     <h2>NFT Time Capsule</h2>
