@@ -9,7 +9,7 @@ This Proof of Concept (PoC) demonstrates the basic flow of the **NFT Time Capsul
 - The hidden content becomes visible only after the unlock date.
 
 ## Flow
-![NFT Time Capsule Flow](https://raw.githubusercontent.com/0xZepeto/nft-time-capsule/refs/heads/main/IMG_20250830_192131.jpg)
+![NFT Time Capsule Flow](https://raw.githubusercontent.com/0xZepeto/nft-time-capsule/refs/heads/main/1756557583036.jpg)
 
 ## Next Steps
 - Implement minimal smart contract on testnet.
